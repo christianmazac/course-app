@@ -12,7 +12,7 @@ import { VideoPlayer } from "../../../../src/components/VideoPlayer";
 import { AppIcon } from "../../../../src/components/AppIcon";
 import { bundledCourses } from "../../../../src/lib/bundled-content";
 import { courseLessons } from "../../../../src/lib/learning";
-import { getLesson } from "../../../../src/lib/courses";
+import { getCourse, getLesson } from "../../../../src/lib/courses";
 import { hasCompletedLesson, lessonProgressId, useProgress } from "../../../../src/lib/progress";
 
 export function generateStaticParams() {
@@ -31,6 +31,11 @@ export default function LessonScreen() {
   const router = useRouter();
   const courseSlug = String(params.courseSlug ?? "");
   const lessonSlug = String(params.lessonSlug ?? "");
+  const { data: loadedCourse } = useQuery({
+    queryKey: ["course", courseSlug],
+    queryFn: () => getCourse(courseSlug),
+    enabled: courseSlug.length > 0
+  });
   const { data: lesson, isPending, error } = useQuery({
     queryKey: ["lesson", courseSlug, lessonSlug],
     queryFn: () => getLesson(courseSlug, lessonSlug),
@@ -58,7 +63,7 @@ export default function LessonScreen() {
   const variant =
     lesson.variants.find(item => item.isDefault) ?? lesson.variants[0];
   const transcript = lesson.transcripts[0];
-  const course = bundledCourses.find(item => item.slug === courseSlug);
+  const course = loadedCourse ?? bundledCourses.find(item => item.slug === courseSlug);
   const lessons = course ? courseLessons(course) : [];
   const lessonIndex = lessons.findIndex(item => item.slug === lessonSlug);
   const previousLesson = lessons[lessonIndex - 1];

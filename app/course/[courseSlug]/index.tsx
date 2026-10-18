@@ -16,7 +16,7 @@ import {
   bundledCourses,
   bundledSkillStages
 } from "../../../src/lib/bundled-content";
-import { courseLessons, getCourseProgress } from "../../../src/lib/learning";
+import { courseLessons, getCourseProgress, orderedCourseModules } from "../../../src/lib/learning";
 import { hasCompletedLesson, lessonProgressId, useProgress } from "../../../src/lib/progress";
 
 export function generateStaticParams() {
@@ -42,6 +42,7 @@ export default function CourseScreen() {
   }
 
   const lessons = courseLessons(course);
+  const modules = orderedCourseModules(course);
   const stats = getCourseProgress(course, progress);
   const nextLesson = lessons.find(lesson => !hasCompletedLesson(progress, course.slug, lesson));
   const pathNode = bundledSkillStages.flatMap(stage => stage.nodes)
@@ -121,7 +122,7 @@ export default function CourseScreen() {
         <View style={styles.lessonHeading}>
           <Text style={styles.sectionTitle}>Lessons</Text>
         </View>
-        {course.modules.map(module => (
+        {modules.map(module => (
           <View key={module.id} style={styles.module}>
             <Text style={styles.moduleTitle}>{module.title}</Text>
             {module.lessons.map(lesson => (

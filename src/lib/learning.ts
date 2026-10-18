@@ -1,8 +1,17 @@
 import type { Course, Lesson } from "../types";
 import type { AppProgress } from "./progress";
 
+export function orderedCourseModules(course: Course): Course["modules"] {
+  return [...course.modules]
+    .sort((a, b) => a.order - b.order)
+    .map(module => ({
+      ...module,
+      lessons: [...module.lessons].sort((a, b) => a.order - b.order)
+    }));
+}
+
 export function courseLessons(course: Course): Lesson[] {
-  return course.modules.flatMap(module => module.lessons);
+  return orderedCourseModules(course).flatMap(module => module.lessons);
 }
 
 export function getCourseProgress(course: Course, progress: AppProgress) {

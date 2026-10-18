@@ -9,6 +9,26 @@ export async function loadSeedContent() {
   const parsedJson: unknown = JSON.parse(await readFile(seedPath, "utf8"));
   const content = seedContentSchema.parse(parsedJson);
 
+  for (const course of content.courses) {
+    const moduleOrders = new Set<number>();
+    for (const module of course.modules) {
+      if (moduleOrders.has(module.order)) {
+        throw new Error(`Course "${course.slug}" has duplicate module order ${module.order}.`);
+      }
+      moduleOrders.add(module.order);
+
+      const lessonOrders = new Set<number>();
+      for (const lesson of module.lessons) {
+        if (lessonOrders.has(lesson.order)) {
+          throw new Error(
+            `Module "${module.title}" in course "${course.slug}" has duplicate lesson order ${lesson.order}.`
+          );
+        }
+        lessonOrders.add(lesson.order);
+      }
+    }
+  }
+
   const readMarkdown = async (markdownFile: string) => {
     const filePath = resolve(contentDirectory, markdownFile);
     const pathFromContentRoot = relative(contentDirectory, filePath);
