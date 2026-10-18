@@ -1,0 +1,14 @@
+.git
+.expo
+node_modules
+**/node_modules
+dist
+web-build
+coverage
+*.log
+.env
+.env.*
+**/.env
+**/.env.*
+apps/api/dist
+packages/shared/dist

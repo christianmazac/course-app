@@ -1,0 +1,17 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": [
+      "/_expo/*",
+      "/*.css",
+      "/*.ico",
+      "/*.js",
+      "/*.json",
+      "/*.map",
+      "/*.png",
+      "/*.svg",
+      "/*.ttf",
+      "/*.webp"
+    ]
+  }
+}

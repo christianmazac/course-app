@@ -1,0 +1,72 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - uses: actions/configure-pages@v5
+      - run: npm ci
+      - run: npm run content:bundle
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run typecheck --workspace @course-app/api
+
+      - name: Configure GitHub Pages base URL
+        shell: bash
+        run: |
+          repository="${GITHUB_REPOSITORY#*/}"
+          if [ "$repository" = "${GITHUB_REPOSITORY_OWNER}.github.io" ]; then
+            base_url="/"
+          else
+            base_url="/$repository"
+          fi
+          echo "EXPO_BASE_URL=$base_url" >> "$GITHUB_ENV"
+
+      - name: Export static website
+        run: npx expo export --platform web
+        env:
+          EXPO_PUBLIC_API_URL: ${{ vars.EXPO_PUBLIC_API_URL }}
+
+      - name: Add deployment guide
+        run: |
+          mkdir -p dist/docs
+          cp -R docs/. dist/docs/
+
+      - name: Disable Jekyll processing
+        run: |
+          cp dist/index.html dist/404.html
+          touch dist/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

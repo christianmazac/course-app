@@ -1,0 +1,82 @@
+{
+  "stages": [
+    {
+      "title": "Start here",
+      "subtitle": "Lorem ipsum dolor sit amet.",
+      "nodes": [
+        {
+          "slug": "self-awareness",
+          "courseSlug": "personal-foundations",
+          "title": "Self-awareness",
+          "description": "Lorem ipsum dolor sit amet.",
+          "domain": "Foundations",
+          "icon": "compass",
+          "prerequisites": []
+        }
+      ]
+    },
+    {
+      "title": "Build everyday skills",
+      "subtitle": "Lorem ipsum dolor sit amet.",
+      "nodes": [
+        {
+          "slug": "focus-and-habits",
+          "courseSlug": "focus-and-habits",
+          "title": "Focus & habits",
+          "description": "Lorem ipsum dolor sit amet.",
+          "domain": "Focus",
+          "icon": "target",
+          "prerequisites": ["self-awareness"]
+        },
+        {
+          "slug": "emotional-resilience",
+          "courseSlug": "emotional-resilience",
+          "title": "Emotional resilience",
+          "description": "Lorem ipsum dolor sit amet.",
+          "domain": "Wellbeing",
+          "icon": "heart",
+          "prerequisites": ["self-awareness"]
+        },
+        {
+          "slug": "confident-communication",
+          "courseSlug": "confident-communication",
+          "title": "Communication",
+          "description": "Lorem ipsum dolor sit amet.",
+          "domain": "Connection",
+          "icon": "messages",
+          "prerequisites": ["self-awareness"]
+        }
+      ]
+    },
+    {
+      "title": "Plan your work",
+      "subtitle": "Lorem ipsum dolor sit amet.",
+      "nodes": [
+        {
+          "slug": "purposeful-productivity",
+          "courseSlug": "purposeful-productivity",
+          "title": "Purposeful productivity",
+          "description": "Lorem ipsum dolor sit amet.",
+          "domain": "Focus",
+          "icon": "target",
+          "prerequisites": ["focus-and-habits", "emotional-resilience"]
+        }
+      ]
+    },
+    {
+      "title": "Work with others",
+      "subtitle": "Lorem ipsum dolor sit amet.",
+      "nodes": [
+        {
+          "slug": "thoughtful-leadership",
+          "courseSlug": "thoughtful-leadership",
+          "title": "Thoughtful leadership",
+          "description": "Lorem ipsum dolor sit amet.",
+          "domain": "Connection",
+          "icon": "users",
+          "prerequisites": ["confident-communication", "purposeful-productivity"]
+        }
+      ]
+    }
+  ]
+}

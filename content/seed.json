@@ -1,0 +1,317 @@
+{
+  "settings": {
+    "siteTitle": "Courses",
+    "siteDescription": "Lorem ipsum dolor sit amet.",
+    "defaultLanguage": "en"
+  },
+  "courses": [
+    {
+      "slug": "intro-course",
+      "title": "Your Learning Adventure",
+      "description": "Lorem ipsum dolor sit amet.",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=85",
+      "modules": [
+        {
+          "title": "Get oriented",
+          "order": 1,
+          "lessons": [
+            {
+              "slug": "welcome",
+              "title": "Welcome to your learning path",
+              "order": 1,
+              "markdownFile": "courses/intro-course/lessons/welcome.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/intro-course/transcripts/welcome.en.md" }]
+            },
+            {
+              "slug": "video-test",
+              "title": "A short pause to notice",
+              "order": 2,
+              "markdownFile": "courses/intro-course/lessons/video-test.md",
+              "variants": [{ "language": "en", "label": "English", "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/intro-course/transcripts/video-test.en.md" }]
+            }
+          ]
+        },
+        {
+          "title": "Make it yours",
+          "order": 2,
+          "lessons": [
+            {
+              "slug": "screens-and-navigation",
+              "title": "Choose one small next step",
+              "order": 1,
+              "markdownFile": "courses/intro-course/lessons/screens-and-navigation.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/intro-course/transcripts/screens-and-navigation.en.md" }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "personal-foundations",
+      "title": "Know Yourself, Grow on Purpose",
+      "description": "Lorem ipsum dolor sit amet.",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1200&q=85",
+      "modules": [
+        {
+          "title": "Find your starting point",
+          "order": 1,
+          "lessons": [
+            {
+              "slug": "personal-inventory",
+              "title": "Take a strengths-first inventory",
+              "order": 1,
+              "markdownFile": "courses/personal-foundations/lessons/personal-inventory.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/personal-foundations/transcripts/personal-inventory.en.md" }]
+            },
+            {
+              "slug": "values-in-action",
+              "title": "Turn values into everyday choices",
+              "order": 2,
+              "markdownFile": "courses/personal-foundations/lessons/values-in-action.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/personal-foundations/transcripts/values-in-action.en.md" }]
+            }
+          ]
+        },
+        {
+          "title": "Choose a direction",
+          "order": 2,
+          "lessons": [
+            {
+              "slug": "one-small-experiment",
+              "title": "Design a one-week experiment",
+              "order": 1,
+              "markdownFile": "courses/personal-foundations/lessons/one-small-experiment.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/personal-foundations/transcripts/one-small-experiment.en.md" }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "focus-and-habits",
+      "title": "Focus & Habits",
+      "description": "Lorem ipsum dolor sit amet.",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=85",
+      "modules": [
+        {
+          "title": "Protect your attention",
+          "order": 1,
+          "lessons": [
+            {
+              "slug": "attention-audit",
+              "title": "Notice where your attention goes",
+              "order": 1,
+              "markdownFile": "courses/focus-and-habits/lessons/attention-audit.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/focus-and-habits/transcripts/attention-audit.en.md" }]
+            },
+            {
+              "slug": "make-focus-easier",
+              "title": "Make the helpful choice easier",
+              "order": 2,
+              "markdownFile": "courses/focus-and-habits/lessons/make-focus-easier.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/focus-and-habits/transcripts/make-focus-easier.en.md" }]
+            }
+          ]
+        },
+        {
+          "title": "Build a repeatable rhythm",
+          "order": 2,
+          "lessons": [
+            {
+              "slug": "tiny-habit-loop",
+              "title": "Build a tiny habit loop",
+              "order": 1,
+              "markdownFile": "courses/focus-and-habits/lessons/tiny-habit-loop.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/focus-and-habits/transcripts/tiny-habit-loop.en.md" }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "emotional-resilience",
+      "title": "Emotional Resilience",
+      "description": "Lorem ipsum dolor sit amet.",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=85",
+      "modules": [
+        {
+          "title": "Understand the moment",
+          "order": 1,
+          "lessons": [
+            {
+              "slug": "name-the-feeling",
+              "title": "Name the feeling without judgment",
+              "order": 1,
+              "markdownFile": "courses/emotional-resilience/lessons/name-the-feeling.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/emotional-resilience/transcripts/name-the-feeling.en.md" }]
+            },
+            {
+              "slug": "thoughts-are-not-facts",
+              "title": "Make room between thought and fact",
+              "order": 2,
+              "markdownFile": "courses/emotional-resilience/lessons/thoughts-are-not-facts.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/emotional-resilience/transcripts/thoughts-are-not-facts.en.md" }]
+            }
+          ]
+        },
+        {
+          "title": "Find your way back",
+          "order": 2,
+          "lessons": [
+            {
+              "slug": "recovery-plan",
+              "title": "Create a personal recovery plan",
+              "order": 1,
+              "markdownFile": "courses/emotional-resilience/lessons/recovery-plan.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/emotional-resilience/transcripts/recovery-plan.en.md" }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "confident-communication",
+      "title": "Confident Communication",
+      "description": "Lorem ipsum dolor sit amet.",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=85",
+      "modules": [
+        {
+          "title": "Listen to understand",
+          "order": 1,
+          "lessons": [
+            {
+              "slug": "curious-listening",
+              "title": "Listen with curiosity",
+              "order": 1,
+              "markdownFile": "courses/confident-communication/lessons/curious-listening.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/confident-communication/transcripts/curious-listening.en.md" }]
+            },
+            {
+              "slug": "clear-boundaries",
+              "title": "Say what you need with care",
+              "order": 2,
+              "markdownFile": "courses/confident-communication/lessons/clear-boundaries.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/confident-communication/transcripts/clear-boundaries.en.md" }]
+            }
+          ]
+        },
+        {
+          "title": "Make feedback useful",
+          "order": 2,
+          "lessons": [
+            {
+              "slug": "useful-feedback",
+              "title": "Give feedback people can use",
+              "order": 1,
+              "markdownFile": "courses/confident-communication/lessons/useful-feedback.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/confident-communication/transcripts/useful-feedback.en.md" }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "purposeful-productivity",
+      "title": "Purposeful Productivity",
+      "description": "Lorem ipsum dolor sit amet.",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85",
+      "modules": [
+        {
+          "title": "Choose what matters",
+          "order": 1,
+          "lessons": [
+            {
+              "slug": "meaningful-goals",
+              "title": "Set a goal that matters to you",
+              "order": 1,
+              "markdownFile": "courses/purposeful-productivity/lessons/meaningful-goals.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/purposeful-productivity/transcripts/meaningful-goals.en.md" }]
+            },
+            {
+              "slug": "energy-aware-planning",
+              "title": "Plan around your energy",
+              "order": 2,
+              "markdownFile": "courses/purposeful-productivity/lessons/energy-aware-planning.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/purposeful-productivity/transcripts/energy-aware-planning.en.md" }]
+            }
+          ]
+        },
+        {
+          "title": "Keep learning from the week",
+          "order": 2,
+          "lessons": [
+            {
+              "slug": "weekly-reset",
+              "title": "Run a ten-minute weekly reset",
+              "order": 1,
+              "markdownFile": "courses/purposeful-productivity/lessons/weekly-reset.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/purposeful-productivity/transcripts/weekly-reset.en.md" }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "thoughtful-leadership",
+      "title": "Thoughtful Leadership",
+      "description": "Lorem ipsum dolor sit amet.",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=85",
+      "modules": [
+        {
+          "title": "Create the conditions for trust",
+          "order": 1,
+          "lessons": [
+            {
+              "slug": "trust-through-clarity",
+              "title": "Build trust through clear agreements",
+              "order": 1,
+              "markdownFile": "courses/thoughtful-leadership/lessons/trust-through-clarity.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/thoughtful-leadership/transcripts/trust-through-clarity.en.md" }]
+            },
+            {
+              "slug": "share-ownership",
+              "title": "Share ownership, not just tasks",
+              "order": 2,
+              "markdownFile": "courses/thoughtful-leadership/lessons/share-ownership.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/thoughtful-leadership/transcripts/share-ownership.en.md" }]
+            }
+          ]
+        },
+        {
+          "title": "Make decisions together",
+          "order": 2,
+          "lessons": [
+            {
+              "slug": "decision-clarity",
+              "title": "Make the decision and owner clear",
+              "order": 1,
+              "markdownFile": "courses/thoughtful-leadership/lessons/decision-clarity.md",
+              "variants": [{ "language": "en", "label": "English", "isDefault": true }],
+              "transcripts": [{ "language": "en", "markdownFile": "courses/thoughtful-leadership/transcripts/decision-clarity.en.md" }]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

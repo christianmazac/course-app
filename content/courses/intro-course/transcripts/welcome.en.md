@@ -1,0 +1,1 @@
+Welcome to this open-source course platform demo.

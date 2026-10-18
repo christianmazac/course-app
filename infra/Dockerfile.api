@@ -1,0 +1,26 @@
+FROM node:24-alpine AS build
+WORKDIR /workspace
+COPY package.json package-lock.json ./
+COPY apps/api/package.json apps/api/package.json
+COPY packages/shared/package.json packages/shared/package.json
+RUN npm ci
+COPY apps/api apps/api
+COPY packages/shared packages/shared
+COPY content content
+RUN npm run build --workspace @course-app/api
+
+FROM node:24-alpine
+WORKDIR /workspace
+ENV NODE_ENV=production
+COPY package.json package-lock.json ./
+COPY apps/api/package.json apps/api/package.json
+COPY packages/shared/package.json packages/shared/package.json
+RUN npm ci --omit=dev --workspace @course-app/api
+COPY --from=build /workspace/apps/api/dist apps/api/dist
+COPY --from=build /workspace/apps/api/prisma apps/api/prisma
+COPY --from=build /workspace/apps/api/prisma.config.ts apps/api/prisma.config.ts
+COPY --from=build /workspace/packages/shared/dist packages/shared/dist
+COPY content content
+USER node
+EXPOSE 3000
+CMD ["npm", "run", "start:prod", "--workspace", "@course-app/api"]

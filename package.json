@@ -1,0 +1,54 @@
+{
+  "name": "course-app",
+  "version": "1.0.0",
+  "main": "expo-router/entry",
+  "workspaces": [
+    "apps/api",
+    "packages/shared"
+  ],
+  "dependencies": {
+    "@course-app/shared": "*",
+    "@expo/metro-runtime": "~57.0.17",
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "@tanstack/query-async-storage-persister": "^5.104.3",
+    "@tanstack/react-query": "^5.90.0",
+    "@tanstack/react-query-persist-client": "^5.104.3",
+    "expo": "~57.0.27",
+    "expo-constants": "~57.0.21",
+    "expo-linking": "~57.0.12",
+    "expo-network": "~57.0.2",
+    "expo-router": "~57.0.25",
+    "expo-status-bar": "~57.0.1",
+    "expo-video": "~57.0.5",
+    "lucide-react-native": "^1.59.0",
+    "punycode": "^2.3.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-markdown-display": "^7.0.2",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-screens": "~4.26.0",
+    "react-native-svg": "15.15.4",
+    "react-native-web": "^0.21.2"
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.2",
+    "eslint": "^9.0.0",
+    "eslint-config-expo": "~57.0.2",
+    "typescript": "~6.0.3"
+  },
+  "scripts": {
+    "start": "npm run content:bundle --workspace @course-app/api && expo start",
+    "android": "npm run content:bundle --workspace @course-app/api && expo start --android",
+    "ios": "npm run content:bundle --workspace @course-app/api && expo start --ios",
+    "web": "npm run content:bundle --workspace @course-app/api && expo start --web",
+    "content:bundle": "npm run content:bundle --workspace @course-app/api",
+    "api:dev": "npm run start:dev --workspace @course-app/api",
+    "db:up": "docker compose -f infra/docker-compose.yml up -d --build",
+    "db:down": "docker compose -f infra/docker-compose.yml down",
+    "db:seed": "docker compose -f infra/docker-compose.yml exec api npm run db:seed --workspace @course-app/api",
+    "lint": "expo lint",
+    "typecheck": "npm run build --workspace @course-app/shared && tsc --noEmit"
+  },
+  "private": true
+}

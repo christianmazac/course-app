@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f7f8">
+    <meta name="description" content="Deployment guide for Course App: publish the web app with GitHub Pages or host the optional API.">
+    <title>Deployment | Course App</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #19252d;
+        --muted: #596870;
+        --line: #dce3e5;
+        --paper: #ffffff;
+        --canvas: #f6f7f8;
+        --accent: #156b61;
+        --accent-soft: #e8f3f0;
+        --code: #18252c;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        background: var(--canvas);
+        color: var(--ink);
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      a { color: var(--accent); text-underline-offset: 3px; }
+      a:hover { text-decoration-thickness: 2px; }
+
+      .shell {
+        display: grid;
+        grid-template-columns: 250px minmax(0, 1fr);
+        max-width: 1440px;
+        min-height: 100vh;
+        margin: 0 auto;
+      }
+
+      aside {
+        position: sticky;
+        top: 0;
+        align-self: start;
+        height: 100vh;
+        padding: 36px 24px;
+        border-right: 1px solid var(--line);
+        background: var(--paper);
+      }
+
+      .brand {
+        display: inline-block;
+        margin-bottom: 34px;
+        color: var(--ink);
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: -.02em;
+        text-decoration: none;
+      }
+
+      .nav-label {
+        margin: 0 0 12px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+      }
+
+      nav { display: grid; gap: 3px; }
+
+      nav a {
+        padding: 7px 10px;
+        border-radius: 5px;
+        color: #40515a;
+        font-size: 13px;
+        text-decoration: none;
+      }
+
+      nav a:hover, nav a:focus-visible {
+        background: var(--accent-soft);
+        color: var(--accent);
+      }
+
+      .sidebar-note {
+        position: absolute;
+        right: 24px;
+        bottom: 28px;
+        left: 24px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      main {
+        width: min(100%, 940px);
+        padding: 58px clamp(24px, 7vw, 88px) 80px;
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+      }
+
+      h1, h2, h3 { color: #152129; line-height: 1.2; }
+      h1 { max-width: 700px; margin: 0; font-size: clamp(36px, 6vw, 54px); letter-spacing: -.045em; }
+      h2 { margin: 0 0 16px; font-size: 27px; letter-spacing: -.025em; }
+      h3 { margin: 25px 0 8px; font-size: 17px; }
+      p { margin: 0 0 15px; }
+      .lede { max-width: 660px; margin: 18px 0 26px; color: var(--muted); font-size: 18px; line-height: 1.65; }
+
+      .quick {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin: 28px 0 52px;
+      }
+
+      .quick-card, .panel, .callout {
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: var(--paper);
+      }
+
+      .quick-card { padding: 16px; }
+      .quick-card strong { display: block; margin-bottom: 4px; font-size: 14px; }
+      .quick-card span { color: var(--muted); font-size: 12px; line-height: 1.5; }
+
+      section { scroll-margin-top: 24px; margin: 0 0 54px; }
+      .section-intro { max-width: 690px; margin-bottom: 22px; color: var(--muted); }
+      .step { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 13px; margin: 20px 0; }
+      .step-number {
+        display: grid;
+        width: 27px;
+        height: 27px;
+        place-items: center;
+        border: 1px solid #b8d7d0;
+        border-radius: 50%;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .step h3 { margin: 2px 0 6px; }
+      .step p { color: #43545d; }
+      .panel { margin: 20px 0; padding: 20px 22px; }
+      .panel > :last-child, .step > div > :last-child { margin-bottom: 0; }
+      .callout { margin: 20px 0; padding: 17px 19px; border-left: 3px solid var(--accent); background: var(--accent-soft); }
+      .callout strong { display: block; margin-bottom: 3px; }
+      .callout p { margin: 0; color: #304b46; }
+
+      code, pre { font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace; }
+      code { overflow-wrap: anywhere; font-size: .9em; }
+      pre {
+        overflow-x: auto;
+        margin: 12px 0 18px;
+        padding: 16px 18px;
+        border-radius: 7px;
+        background: var(--code);
+        color: #edf4f3;
+        font-size: 13px;
+        line-height: 1.65;
+        tab-size: 2;
+      }
+
+      pre code { overflow-wrap: normal; }
+      ul { margin: 9px 0 18px; padding-left: 21px; }
+      li { margin: 5px 0; }
+      .muted { color: var(--muted); }
+
+      table { width: 100%; border-collapse: collapse; margin: 18px 0; }
+      th, td { padding: 11px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+      th { color: #33464f; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; }
+      td:first-child { white-space: nowrap; }
+
+      footer { padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+
+      @media (max-width: 760px) {
+        .shell { display: block; }
+        aside {
+          position: static;
+          height: auto;
+          padding: 18px 20px 14px;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+        .brand { margin: 0 0 11px; }
+        .nav-label, .sidebar-note { display: none; }
+        nav { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 3px; }
+        nav a { flex: 0 0 auto; padding: 5px 9px; }
+        main { padding: 38px 20px 56px; }
+        .quick { grid-template-columns: 1fr; margin: 24px 0 42px; }
+        .quick-card { padding: 13px 15px; }
+        .quick-card strong { display: inline; margin-right: 7px; }
+        .panel { padding: 17px; }
+        table { display: block; overflow-x: auto; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <aside>
+        <a class="brand" href="#top">Course App <span class="muted">/ deployment</span></a>
+        <p class="nav-label">On this page</p>
+        <nav aria-label="Page sections">
+          <a href="#overview">Overview</a>
+          <a href="#pages">Publish the web app</a>
+          <a href="#api">Optional API</a>
+          <a href="#mobile">Mobile builds</a>
+          <a href="#operations">Operations</a>
+          <a href="#troubleshooting">Troubleshooting</a>
+        </nav>
+        <p class="sidebar-note">Static App for Deployment.</p>
+      </aside>
+
+      <main id="top">
+        <header>
+          <p class="eyebrow">Deployment guide</p>
+          <h1>Publish the app. Keep the setup simple.</h1>
+          <p class="lede">The web app can be served as static files with GitHub Pages. Optional Deployment</p>
+          <div class="quick" aria-label="Deployment summary">
+            <div class="quick-card"><strong>Web hosting</strong><span>GitHub Pages and GitHub Actions</span></div>
+            <div class="quick-card"><strong>API hosting</strong><span>Optional; requires PostgreSQL and a container host</span></div>
+            <div class="quick-card"><strong>Secrets</strong><span>None for the static app; server credentials stay with the API host</span></div>
+          </div>
+        </header>
+
+        <section id="overview">
+          <h2>Overview</h2>
+          <p class="section-intro">There are two deployment paths. Start with the static app; add the API only when a deployment needs live server-backed content. The app continues to show bundled lessons when the API is not configured or cannot be reached.</p>
+          <div class="panel">
+            <strong>Static app</strong>
+            <p>Expo exports the web client to <code>dist/</code>. The Pages workflow also copies this guide into <code>dist/docs/</code>, then publishes both from the same build.</p>
+            <p><strong>Optional API</strong><br>Build <code>infra/Dockerfile.api</code> from the repository root, connect it to PostgreSQL, and provide its public URL to the web build.</p>
+          </div>
+          <p>Keep course text and lesson metadata in the repository. Treat video and thumbnail URLs in the content seed as externally hosted assets; they still need to be reachable over HTTPS.</p>
+        </section>
+
+        <section id="pages">
+          <h2>Publish the web app</h2>
+          <p class="section-intro">The deployment workflow runs on pushes to <code>main</code> or <code>master</code>, and can also be started manually from the Actions tab.</p>
+
+          <div class="step">
+            <span class="step-number">1</span>
+            <div><h3>Create the GitHub repository</h3><p>Push this project to a repository named <code>course-app</code>. Use the default branch <code>main</code>. For free GitHub Pages hosting, make the repository public; Pages availability for private repositories depends on the organization or account plan.</p></div>
+          </div>
+          <div class="step">
+            <span class="step-number">2</span>
+            <div><h3>Enable GitHub Actions for Pages</h3><p>Open <strong>Settings → Pages</strong>, then set <strong>Build and deployment → Source</strong> to <strong>GitHub Actions</strong>. Do not select a branch-based publishing source.</p></div>
+          </div>
+          <div class="step">
+            <span class="step-number">3</span>
+            <div><h3>Push to the deployment branch</h3><p>Each push runs checks, exports the static app, adds this guide, and deploys the artifact. Check the <strong>Actions</strong> tab for the run result and deployed Pages URL.</p></div>
+          </div>
+          <div class="callout">
+            <strong>API not configured?</strong>
+            <p>Leave <code>EXPO_PUBLIC_API_URL</code> unset. The web app uses its bundled course content and does not require an API key or database.</p>
+          </div>
+
+          <h3>Connect an optional API</h3>
+          <p>When the API has been deployed and its HTTPS health endpoint responds, add a repository Actions variable named <code>EXPO_PUBLIC_API_URL</code> under <strong>Settings → Secrets and variables → Actions → Variables</strong>. Set its value to the API base URL ending in <code>/api/v1</code>, for example:</p>
+          <pre><code>https://api.example.com/api/v1</code></pre>
+          <p>This is a public URL, not a secret. The workflow reads the variable during the web export, so changing it requires a new deployment run. Also allow the Pages site origin in the API's <code>ALLOWED_WEB_ORIGINS</code> setting, without a trailing slash or path:</p>
+          <pre><code>https://&lt;owner&gt;.github.io</code></pre>
+          <p>For a project site, the origin does not include <code>/course-app</code>. For a user or organization site, use that site's <code>.github.io</code> origin.</p>
+        </section>
+
+        <section id="api">
+          <h2>Host the optional API</h2>
+          <p class="section-intro">The NestJS API and PostgreSQL database run separately from GitHub Pages. Use a container host and a managed PostgreSQL service, or deploy the included Compose stack on a server you operate.</p>
+
+          <h3>Container host or managed platform</h3>
+          <ol>
+            <li>Build from the repository root with <code>infra/Dockerfile.api</code> as the Dockerfile. The repository root must be the build context because the image uses workspace packages and checked-in course content.</li>
+            <li>Attach a PostgreSQL database and set <code>DATABASE_URL</code> to its connection URL. Use a private database connection where the provider supports it.</li>
+            <li>Set <code>PORT</code> to the port expected by the host, and set <code>ALLOWED_WEB_ORIGINS</code> to the exact comma-separated list of website origins that may call the API.</li>
+            <li>Run <code>npm run db:migrate:deploy --workspace @course-app/api</code> as a release step before starting the new container.</li>
+            <li>Expose the service through the host's HTTPS endpoint. Configure its health check to <code>/api/v1/health</code>.</li>
+            <li>Confirm the service is healthy, then set <code>EXPO_PUBLIC_API_URL</code> in the GitHub Actions variables and redeploy the web app.</li>
+          </ol>
+          <p>The included Docker Compose configuration applies migrations on startup; other container platforms should run the command above as a release step. Back up the database before deploying schema changes. Keep production credentials in the hosting provider's secret store; never commit a populated <code>.env</code> file.</p>
+
+          <h3>Self-host with Docker Compose</h3>
+          <p>The included Compose configuration is intended for local development and self-hosting on a trusted machine. Start it from the repository root:</p>
+          <pre><code>docker compose -f infra/docker-compose.yml up -d --build
+docker compose -f infra/docker-compose.yml exec api npm run db:seed --workspace @course-app/api</code></pre>
+          <p>For an internet-facing deployment, replace local database credentials, configure persistent storage and backups, restrict database access to the API, and put the API behind a TLS-enabled reverse proxy. Set <code>ALLOWED_WEB_ORIGINS</code> to the site origin. Do not expose the database port publicly.</p>
+
+          <h3>Server configuration</h3>
+          <table>
+            <thead><tr><th>Variable</th><th>Required</th><th>Purpose</th></tr></thead>
+            <tbody>
+              <tr><td><code>DATABASE_URL</code></td><td>Yes</td><td>PostgreSQL connection string used by Prisma.</td></tr>
+              <tr><td><code>PORT</code></td><td>No</td><td>HTTP listen port; defaults to <code>3000</code>.</td></tr>
+              <tr><td><code>ALLOWED_WEB_ORIGINS</code></td><td>Recommended</td><td>Comma-separated browser origins allowed by CORS. Use the deployed site origin.</td></tr>
+              <tr><td><code>EXPO_PUBLIC_API_URL</code></td><td>No</td><td>Web build-time URL ending in <code>/api/v1</code>; set as a GitHub Actions variable.</td></tr>
+            </tbody>
+          </table>
+          <p>The API exposes health, settings, course, lesson, and search endpoints under <code>/api/v1</code>. It has no account system; learner progress remains on the device.</p>
+        </section>
+
+        <section id="mobile">
+          <h2>Build mobile apps</h2>
+          <p class="section-intro">The repository includes native Expo app configuration. GitHub Pages publishes only the web app; Android and iOS binaries require a separate build and distribution process.</p>
+          <ol>
+            <li>From the repository root, sign in and configure EAS. Run:
+              <pre><code>npx eas-cli@latest login
+npx eas-cli@latest build:configure</code></pre>
+            </li>
+            <li>Set the production <code>EXPO_PUBLIC_API_URL</code> in the EAS build environment only if the native app should use the API. Otherwise, omit it and use bundled content.</li>
+            <li>Build Android and iOS binaries, then submit them through the relevant app stores:
+              <pre><code>npx eas-cli@latest build --platform all</code></pre>
+            </li>
+          </ol>
+          <p>Store signing credentials and any server secrets in EAS or the API host, not in source control. Test a development build on real devices before distributing a release.</p>
+        </section>
+
+        <section id="operations">
+          <h2>Release and operations</h2>
+          <ul>
+            <li>Before merging content changes, run <code>npm ci</code>, <code>npm run content:validate --workspace @course-app/api</code>, <code>npm run lint</code>, and the type checks documented in the repository README.</li>
+            <li>Inspect the Actions run after deployment. A successful app build does not verify the availability of external video, thumbnail, database, or API services.</li>
+            <li>Keep database backups and verify a restore procedure before relying on API-backed data.</li>
+            <li>Review course-content distribution rights separately from the MIT license for application code.</li>
+            <li>Progress and cached results are device-local. A server deployment does not enable learner accounts or cross-device synchronization.</li>
+          </ul>
+        </section>
+
+        <section id="troubleshooting">
+          <h2>Troubleshooting</h2>
+          <div class="panel">
+            <h3>Pages shows a 404 or an empty page</h3>
+            <p>Confirm Pages uses GitHub Actions as its source, then check the Pages deployment job in the Actions tab. Wait for the deployment to finish before reopening the site.</p>
+            <h3>The API is ignored or requests fail in a browser</h3>
+            <p>Check that the Actions variable ends in <code>/api/v1</code>, trigger a fresh web deployment, and verify that the API's CORS allowlist contains the website origin exactly.</p>
+            <h3>The API container fails to start</h3>
+            <p>Check the database connection URL, network access from the API container, and migration logs. The host must allow the container to bind to the configured <code>PORT</code>.</p>
+            <h3>Some lessons or media are missing</h3>
+            <p>Run the content validator and verify that referenced lesson files exist and external media URLs are reachable over HTTPS.</p>
+          </div>
+        </section>
+
+        <footer>
+          <p>Return to the <a href="../">Course App</a>.</p>
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>

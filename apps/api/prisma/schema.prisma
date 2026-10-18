@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Setting {
+  id               String   @id
+  siteTitle        String
+  siteDescription  String   @db.Text
+  defaultLanguage  String
+  updatedAt        DateTime @updatedAt
+}
+
+model Course {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String   @db.Text
+  thumbnailUrl String  @db.Text
+  published   Boolean  @default(true)
+  modules     Module[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Module {
+  id        String   @id @default(cuid())
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  title     String
+  order     Int
+  published Boolean  @default(true)
+  lessons   Lesson[]
+
+  @@unique([courseId, order])
+  @@index([courseId, published, order])
+}
+
+model Lesson {
+  id          String          @id @default(cuid())
+  moduleId    String
+  module      Module          @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  slug        String          @unique
+  title       String
+  order       Int
+  body        String          @db.Text
+  published   Boolean         @default(true)
+  variants    LessonVariant[]
+  transcripts Transcript[]
+
+  @@unique([moduleId, order])
+  @@index([moduleId, published, order])
+}
+
+model LessonVariant {
+  id        String   @id @default(cuid())
+  lessonId  String
+  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  language  String
+  label     String
+  videoUrl  String?  @db.Text
+  isDefault Boolean  @default(false)
+
+  @@unique([lessonId, language])
+}
+
+model Transcript {
+  id       String  @id @default(cuid())
+  lessonId String
+  lesson   Lesson  @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  language String
+  text     String  @db.Text
+  vttText  String? @db.Text
+
+  @@unique([lessonId, language])
+}

@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "course-app",
+    "slug": "course-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "course-app",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.example.courseapp"
+    },
+    "android": {
+      "package": "com.example.courseapp"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-video"
+    ]
+  }
+}
